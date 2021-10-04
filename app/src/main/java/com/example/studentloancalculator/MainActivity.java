@@ -2,6 +2,7 @@ package com.example.studentloancalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -35,19 +36,27 @@ public class MainActivity extends AppCompatActivity {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String value1=edittext1.getText().toString();
-                String value2=edittext2.getText().toString();
-                String value3=edittext3.getText().toString();
-                String value4=edittext4.getText().toString();
+                if(!(edittext1.getText().toString().isEmpty() || edittext3.getText().toString().isEmpty() || edittext4.getText().toString().isEmpty())) {
+                    String value1 = edittext1.getText().toString();
+                    String value2 = edittext2.getText().toString();
+                    String value3 = edittext3.getText().toString();
+                    String value4 = edittext4.getText().toString();
 
-                double l=Double.parseDouble(value1);
-                double p=Double.parseDouble(value2);
-                double r=Double.parseDouble(value3) / 100;
-                double y=Double.parseDouble(value4);
-                double monthlyP = ((l+p)*Math.pow(1+r,y))/(y*12); //monthly payment amount
-                double total = monthlyP*(y*12) - (l+p); //the total interest
-                String display = String.valueOf(monthlyP) + "   " + String.valueOf(total);
-                Toast.makeText(getApplicationContext(),String.valueOf(display), Toast.LENGTH_LONG).show();
+                    double l = Double.parseDouble(value1);
+                    double p = Double.parseDouble(value2);
+                    double r = Double.parseDouble(value3) / 100;
+                    double y = Double.parseDouble(value4);
+                    double monthlyP = ((l + p) * Math.pow(1 + r, y)) / (y * 12); //monthly payment amount
+                    double total = monthlyP * (y * 12) - (l + p); //the total interest
+                    String display = String.valueOf(monthlyP) + "   " + String.valueOf(total);
+                    Toast.makeText(getApplicationContext(), String.valueOf(display), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast error = Toast.makeText(MainActivity.this, "Fill in all blanks", Toast.LENGTH_SHORT);
+                    View v = error.getView();
+                    v.setBackgroundColor(Color.rgb(245, 62, 49));
+                    error.show();
+                }
             }
         });
     }
